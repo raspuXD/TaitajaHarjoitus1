@@ -10,6 +10,8 @@ public class CameraMovement : MonoBehaviour
     public float maxX = 10f;  // Maximum X position
     public float minY = -5f;  // Minimum Y position
     public float maxY = 5f;   // Maximum Y position
+    public TutorialPopUp howToBuy;
+    int hasSeenPop = 0;
 
     void Update()
     {
@@ -31,5 +33,12 @@ public class CameraMovement : MonoBehaviour
 
         // Apply new position to the camera
         transform.position = newPosition;
+
+
+        if ((transform.position.x <= -11f || transform.position.x >= 12f) && hasSeenPop == 0)
+        {
+            howToBuy.StartThePopUp("You can buy rooms or upgrade the furniture inside them to earn more money");
+            hasSeenPop = 1;
+        }
     }
 }

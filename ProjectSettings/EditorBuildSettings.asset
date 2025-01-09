@@ -7,14 +7,14 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/mainmenu.unity
-    guid: 4379667ee35f5034589c2351d7567a49
+    guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Rasnus Folder/Hotel1.unity
-    guid: 403486caf4abb2548baaf117b97d00fa
-  - enabled: 1
-    path: Assets/Rasnus Folder/Hotel2.unity
-    guid: 18a6e9a929579384dadb3695fb34981c
+    path: Assets/Scenes/Hotel1.unity
+    guid: f4c3288e130a1f040915e46d04740162
   - enabled: 1
     path: Assets/Scenes/gameover.unity
     guid: c373940684b55c74287657d4fe8c3e42
+  - enabled: 1
+    path: Assets/Scenes/winscene.unity
+    guid: 86a3e053228acac45bf3c44c1492c713
   m_configObjects: {}

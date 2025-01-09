@@ -17,6 +17,7 @@ public class TutorialPopUp : MonoBehaviour
 
     [Header("Closing options")]
     public KeyCode closeKey = KeyCode.Escape;
+    public CameraMovement movement;
 
     public void AssingCloseKey(KeyCode theNewKey)
     {
@@ -33,6 +34,10 @@ public class TutorialPopUp : MonoBehaviour
 
     public void StartThePopUp(string textToShow)
     {
+        if(movement != null)
+        {
+            Time.timeScale = 0;
+        }
         theTutorialButton.gameObject.SetActive(true);
         theInfoText.text = textToShow;
         theTutorialButton.interactable = false;
@@ -57,7 +62,6 @@ public class TutorialPopUp : MonoBehaviour
 
         if (scaleUp)
         {
-            Time.timeScale = 1;
             yield return new WaitForSecondsRealtime(1f);
             canCountinueNow.SetActive(true);
             howToGetAwayText.text = "Click to Close or\r\n"+closeKey.ToString();
@@ -65,10 +69,13 @@ public class TutorialPopUp : MonoBehaviour
         }
         else
         {
-            Time.timeScale = 0;
             theInfoText.text = "";
             howToGetAwayText.text = "";
             theTutorialButton.gameObject.SetActive(false);
+            if (movement != null)
+            {
+                Time.timeScale = 1;
+            }
         }
     }
 

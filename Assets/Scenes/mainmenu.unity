@@ -4204,7 +4204,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: level
+          m_StringArgument: Juho
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 926277837}
@@ -6807,7 +6807,10 @@ MonoBehaviour:
   canCountinueNow: {fileID: 860658709}
   theInfoText: {fileID: 232660986}
   howToGetAwayText: {fileID: 821817707}
+  atTheStart: 0
+  theTextIfStart: 
   closeKey: 101
+  movement: {fileID: 0}
 --- !u!4 &2105202940
 Transform:
   m_ObjectHideFlags: 0
