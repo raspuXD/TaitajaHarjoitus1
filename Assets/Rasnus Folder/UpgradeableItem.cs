@@ -18,10 +18,13 @@ public class UpgradeableItem : MonoBehaviour
 
     [Header("UI References")]
     public TextMeshProUGUI UpgradeCostText; // Reference to the TextMeshProUGUI to display the upgrade cost
-
+    public Sprite level1, level2;
+    Image thisImage;
+    public GameObject workingIcon;
     private void Start()
     {
         UpdateUpgradeCostUI(); // Initial UI update when the script starts
+        thisImage = GetComponent<Image>();
     }
 
     public void Upgrade()
@@ -34,10 +37,19 @@ public class UpgradeableItem : MonoBehaviour
                 UpgradeLevel++;
                 Debug.Log($"{ItemName} upgraded to level {UpgradeLevel}!");
                 UpdateUpgradeCostUI(); // Update the upgrade cost UI after upgrading
+                if(UpgradeLevel == 1)
+                {
+                    thisImage.sprite = level1;
+                }
+
                 if(UpgradeLevel == 2)
                 {
+                    thisImage.sprite = level2;
                     theCanvas.SetActive(false); 
                     CanOpenMenu = false;
+                    Button thisButton = GetComponent<Button>();
+                    thisButton.interactable = false;
+                    workingIcon.SetActive(false);
                 }
             }
         }
