@@ -10,12 +10,25 @@ public class TutorialPopUp : MonoBehaviour
     public GameObject thePopUp, canCountinueNow;
     public TMP_Text theInfoText, howToGetAwayText;
 
+    [Header("Start")]
+
+    public bool atTheStart = false;
+    public string theTextIfStart;
+
     [Header("Closing options")]
     public KeyCode closeKey = KeyCode.Escape;
 
     public void AssingCloseKey(KeyCode theNewKey)
     {
         closeKey = theNewKey;
+    }
+
+    private void Start()
+    {
+        if(atTheStart)
+        {
+            StartThePopUp(theTextIfStart);
+        }
     }
 
     public void StartThePopUp(string textToShow)
