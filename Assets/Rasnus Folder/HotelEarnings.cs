@@ -7,6 +7,7 @@ public class HotelEarnings : MonoBehaviour
     public float EarningsInterval = 5f; // Seconds
     public TextMeshProUGUI countdownText; // Reference to the TextMeshProUGUI component
 
+    public AudioSource source;
     private float timeRemaining;
 
     private void Start()
@@ -42,5 +43,6 @@ public class HotelEarnings : MonoBehaviour
 
         MoneyManager.Instance.AddMoney(totalEarnings);
         Debug.Log("Total earnings generated: " + totalEarnings);
+        source.Play();
     }
 }

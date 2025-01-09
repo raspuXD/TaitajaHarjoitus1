@@ -11,13 +11,15 @@ public class BuyRoom : MonoBehaviour
     [Header("UI References")]
     public TextMeshProUGUI RoomCostText;  // UI element to show the room cost
     public Button BuyRoomButton;  // Button that triggers the purchase
-    
+
+    [Header("Sound Effect")]
+    public AudioSource audioSource;
 
     private void Start()
     {
         // Display the room cost when the game starts
         UpdateRoomCostUI();
-        
+
         // Add listener to the BuyRoomButton
         BuyRoomButton.onClick.AddListener(HandleRoomPurchase);
     }
@@ -29,14 +31,13 @@ public class BuyRoom : MonoBehaviour
         if (MoneyManager.Instance.SpendMoney(RoomCost))
         {
             ActivateRoom();  // If the player has enough money, activate the room
+            PlayPurchaseSound();  // Play the sound effect
         }
         else
         {
             Debug.Log("Not enough money to buy the room!");
         }
     }
-
-    // Get the room cost (can include dynamic pricing logic if necessary)
 
     // Activate the room prefab
     private void ActivateRoom()
@@ -45,7 +46,20 @@ public class BuyRoom : MonoBehaviour
         {
             roomPrefab.SetActive(true);  // Activate the room prefab
             Debug.Log("Room purchased and activated!");
-            Destroy(gameObject);
+            Destroy(gameObject);  // Destroy the BuyRoom object
+        }
+    }
+
+    // Play the sound effect for purchasing a room
+    private void PlayPurchaseSound()
+    {
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("No purchase sound effect assigned!");
         }
     }
 

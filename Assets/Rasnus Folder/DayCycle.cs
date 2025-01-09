@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 
 public class DayCycle : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class DayCycle : MonoBehaviour
     public float dayLengthInSeconds = 300f; // 5 minutes = 300 seconds
     private float currentTime = 0f; // Elapsed time
     private bool isDayOver = false; // Flag to check if day is over
+
+    public  bool Day2 = false;
 
     [Header("UI Elements")]
     public TextMeshProUGUI dayTimerText; // TextMeshPro for displaying the timer
@@ -52,9 +56,12 @@ public class DayCycle : MonoBehaviour
         isDayOver = true;
 
         // Show the menu (or any event you want to trigger)
-        if (menu != null)
+        if (menu != null && !Day2)
         {
             menu.SetActive(true); // Show the menu
+        }
+        else{
+            SceneManager.LoadScene("winscene");
         }
 
         // Optionally, you can reset the time and restart the day cycle:

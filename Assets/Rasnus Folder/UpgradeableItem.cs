@@ -21,6 +21,9 @@ public class UpgradeableItem : MonoBehaviour
     public Sprite level1, level2;
     Image thisImage;
     public GameObject workingIcon;
+
+    public AudioSource audioSource;
+
     private void Start()
     {
         UpdateUpgradeCostUI(); // Initial UI update when the script starts
@@ -34,6 +37,7 @@ public class UpgradeableItem : MonoBehaviour
             float upgradeCost = GetUpgradeCost();
             if (MoneyManager.Instance.SpendMoney(upgradeCost))
             {
+                audioSource.Play();
                 UpgradeLevel++;
                 Debug.Log($"{ItemName} upgraded to level {UpgradeLevel}!");
                 UpdateUpgradeCostUI(); // Update the upgrade cost UI after upgrading
