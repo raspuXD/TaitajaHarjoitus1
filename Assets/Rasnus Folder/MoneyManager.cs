@@ -1,10 +1,22 @@
 using UnityEngine;
+using TMPro;
+using System.Collections;
 
 public class MoneyManager : MonoBehaviour
 {
     public static MoneyManager Instance;
 
-    public float Money { get; private set; }
+    [Header("Money Properties")]
+    [SerializeField] private float money; // Backing field for Money property
+
+    [Header("UI Elements")]
+    public TextMeshProUGUI MoneyText; // Optional, can still assign a UI text
+    public GameObject MoneyDisplayObject; // The GameObject to animate
+
+    public float Money => money; // Public getter for Money
+
+    private Vector3 initialScale;
+    private Quaternion initialRotation;
 
     private void Awake()
     {
@@ -14,18 +26,32 @@ public class MoneyManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    private void Start()
+    {
+        // Store the initial scale and rotation at the start
+        if (MoneyDisplayObject != null)
+        {
+            initialScale = MoneyDisplayObject.transform.localScale;
+            initialRotation = MoneyDisplayObject.transform.rotation;
+        }
+
+        UpdateMoneyUI();
+    }
+
     public void AddMoney(float amount)
     {
-        Money += amount;
-        Debug.Log("Money added: " + amount + ". Total: " + Money);
+        money += amount;
+        UpdateMoneyUI();
+        Debug.Log("Money added: " + amount + ". Total: " + money);
     }
 
     public bool SpendMoney(float amount)
     {
-        if (Money >= amount)
+        if (money >= amount)
         {
-            Money -= amount;
-            Debug.Log("Money spent: " + amount + ". Remaining: " + Money);
+            money -= amount;
+            UpdateMoneyUI();
+            Debug.Log("Money spent: " + amount + ". Remaining: " + money);
             return true;
         }
         else
@@ -33,5 +59,56 @@ public class MoneyManager : MonoBehaviour
             Debug.Log("Not enough money!");
             return false;
         }
+    }
+
+    private void UpdateMoneyUI()
+    {
+        if (MoneyText != null)
+        {
+            MoneyText.text = $"${money:F2}";
+        }
+
+        if (MoneyDisplayObject != null)
+        {
+            StartCoroutine(AnimateMoneyChange(MoneyDisplayObject));
+        }
+    }
+
+    private IEnumerator AnimateMoneyChange(GameObject targetObject)
+    {
+        Vector3 targetScale = initialScale * 1.2f;
+        Quaternion targetRotation = Quaternion.Euler(0, 0, 15); // Rotate 15 degrees on Z-axis
+
+        float duration = 0.3f; // Animation duration
+        float elapsedTime = 0;
+
+        // Scale and rotate up
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+
+            targetObject.transform.localScale = Vector3.Lerp(initialScale, targetScale, t);
+            targetObject.transform.rotation = Quaternion.Lerp(initialRotation, targetRotation, t);
+
+            yield return null;
+        }
+
+        // Reset animation
+        elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+
+            targetObject.transform.localScale = Vector3.Lerp(targetScale, initialScale, t);
+            targetObject.transform.rotation = Quaternion.Lerp(targetRotation, initialRotation, t);
+
+            yield return null;
+        }
+
+        // Ensure final state is precise
+        targetObject.transform.localScale = initialScale;
+        targetObject.transform.rotation = initialRotation;
     }
 }

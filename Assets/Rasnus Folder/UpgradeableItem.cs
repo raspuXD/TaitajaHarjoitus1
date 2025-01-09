@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;  // Ensure you have this namespace
 
 public class UpgradeableItem : MonoBehaviour
 {
@@ -10,14 +12,49 @@ public class UpgradeableItem : MonoBehaviour
     public float UpgradeEffectMultiplier = 1.2f;
     public float BaseEarning = 10f;
 
+    public Button UpgradeButton;
+    public GameObject theCanvas;
+
+    [Header("UI References")]
+    public TextMeshProUGUI UpgradeCostText; // Reference to the TextMeshProUGUI to display the upgrade cost
+
+    private void Start()
+    {
+        UpdateUpgradeCostUI(); // Initial UI update when the script starts
+    }
+
     public void Upgrade()
     {
-        float upgradeCost = GetUpgradeCost();
-        if (MoneyManager.Instance.SpendMoney(upgradeCost))
+        if (UpgradeLevel != 2)
         {
-            UpgradeLevel++;
-            Debug.Log($"{ItemName} upgraded to level {UpgradeLevel}!");
+            float upgradeCost = GetUpgradeCost();
+            if (MoneyManager.Instance.SpendMoney(upgradeCost))
+            {
+                UpgradeLevel++;
+                Debug.Log($"{ItemName} upgraded to level {UpgradeLevel}!");
+                UpdateUpgradeCostUI(); // Update the upgrade cost UI after upgrading
+                if(UpgradeLevel == 2)
+                {
+                    theCanvas.SetActive(false); 
+                }
+            }
         }
+        else
+        {
+            Debug.Log("MAX LEVEL");
+            theCanvas.SetActive(false);
+        }
+    }
+
+    // When the button is clicked, set the upgrade logic
+    public void WhenClicked()
+    {
+        UpgradeButton.onClick.RemoveAllListeners();
+
+        // Add the Upgrade method to the button's onClick event
+        UpgradeButton.onClick.AddListener(Upgrade);
+        UpdateUpgradeCostUI();
+        theCanvas.SetActive(true);
     }
 
     public float GetUpgradeCost()
@@ -28,5 +65,16 @@ public class UpgradeableItem : MonoBehaviour
     public float GetEarnings()
     {
         return BaseEarning * Mathf.Pow(UpgradeEffectMultiplier, UpgradeLevel);
+    }
+
+    // Method to update the UI with the current upgrade cost
+    private void UpdateUpgradeCostUI()
+    {
+        if (UpgradeCostText != null)
+        {
+            // Ensure the upgrade cost is calculated and the UI text is updated accordingly
+            float upgradeCost = GetUpgradeCost();
+            UpgradeCostText.text = $"Upgrade Cost: €{upgradeCost:F2}";
+        }
     }
 }

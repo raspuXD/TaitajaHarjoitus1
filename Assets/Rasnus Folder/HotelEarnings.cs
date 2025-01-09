@@ -15,7 +15,10 @@ public class HotelEarnings : MonoBehaviour
         float totalEarnings = 0;
         foreach (var item in HotelPieces)
         {
+            if(item.gameObject.activeSelf)
+            {
             totalEarnings += item.GetEarnings();
+            }
         }
 
         MoneyManager.Instance.AddMoney(totalEarnings);
