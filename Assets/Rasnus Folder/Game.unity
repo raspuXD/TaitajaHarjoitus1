@@ -569,7 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b10802d0d6e8a4c9175e22f4180299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayLengthInSeconds: 30
+  dayLengthInSeconds: 300
   dayTimerText: {fileID: 1446448899}
   menu: {fileID: 579202881}
 --- !u!1 &571025416

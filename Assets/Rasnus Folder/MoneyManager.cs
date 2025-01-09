@@ -42,7 +42,6 @@ public class MoneyManager : MonoBehaviour
     {
         money += amount;
         UpdateMoneyUI();
-        Debug.Log("Money added: " + amount + ". Total: " + money);
     }
 
     public bool SpendMoney(float amount)

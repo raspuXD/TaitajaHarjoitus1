@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 public class Bills : MonoBehaviour
 {
     [Header("Bill Settings")]
-    public float billAmount = 10f; // Amount deducted each interval
-    public float billInterval = 1.3f * 60f; // Time in seconds (1.3 minutes)
+    public float billAmount; // Amount deducted each interval
+    public float billInterval; // Time in seconds (1.3 minutes)
 
     private void Start()
     {
@@ -38,7 +38,7 @@ public class Bills : MonoBehaviour
     {
         // Trigger a loss condition, for example by showing a "You Lose" message or restarting the game
         Debug.Log("Player has lost due to insufficient funds!");
-        SceneManager.LoadScene("mainmenu");
+        SceneManager.LoadScene("gameover");
         // Example: GameManager.Instance.GameOver();
     }
 }
