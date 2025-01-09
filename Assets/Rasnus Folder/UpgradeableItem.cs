@@ -71,6 +71,8 @@ public class UpgradeableItem : MonoBehaviour
         return BaseEarning * Mathf.Pow(UpgradeEffectMultiplier, UpgradeLevel);
     }
 
+    
+
     // Method to update the UI with the current upgrade cost
     private void UpdateUpgradeCostUI()
     {
