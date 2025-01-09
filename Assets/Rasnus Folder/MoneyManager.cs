@@ -49,16 +49,22 @@ public class MoneyManager : MonoBehaviour
     {
         if (money >= amount)
         {
-            money -= amount;
-            UpdateMoneyUI();
-            Debug.Log("Money spent: " + amount + ". Remaining: " + money);
+            money -= amount;  // Deduct the amount from the player's money
+            UpdateMoneyUI();   // Update the UI to reflect the new balance
+            Debug.Log($"Money spent: {amount}. Remaining: {money}");  // Debug log to track money changes
             return true;
         }
         else
         {
             Debug.Log("Not enough money!");
-            return false;
+            return false;  // Return false if the player can't afford the bill
         }
+    }
+
+    public void PayBills(float amount)
+    {
+        money -= amount;
+        UpdateMoneyUI();
     }
 
     private void UpdateMoneyUI()

@@ -14,6 +14,7 @@ public class UpgradeableItem : MonoBehaviour
 
     public Button UpgradeButton;
     public GameObject theCanvas;
+    public bool CanOpenMenu = true;
 
     [Header("UI References")]
     public TextMeshProUGUI UpgradeCostText; // Reference to the TextMeshProUGUI to display the upgrade cost
@@ -36,6 +37,7 @@ public class UpgradeableItem : MonoBehaviour
                 if(UpgradeLevel == 2)
                 {
                     theCanvas.SetActive(false); 
+                    CanOpenMenu = false;
                 }
             }
         }
@@ -43,6 +45,7 @@ public class UpgradeableItem : MonoBehaviour
         {
             Debug.Log("MAX LEVEL");
             theCanvas.SetActive(false);
+            CanOpenMenu = false;
         }
     }
 
@@ -50,11 +53,12 @@ public class UpgradeableItem : MonoBehaviour
     public void WhenClicked()
     {
         UpgradeButton.onClick.RemoveAllListeners();
-
-        // Add the Upgrade method to the button's onClick event
-        UpgradeButton.onClick.AddListener(Upgrade);
-        UpdateUpgradeCostUI();
-        theCanvas.SetActive(true);
+        if(CanOpenMenu)
+        {
+            UpgradeButton.onClick.AddListener(Upgrade);
+            UpdateUpgradeCostUI();
+            theCanvas.SetActive(true);
+        }
     }
 
     public float GetUpgradeCost()
