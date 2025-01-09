@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Taitaja1Harjoitus2.sln"
+    "dotnet.defaultSolution": "TaitajaHarjoitus1.sln"
 }
